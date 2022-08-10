@@ -1,7 +1,7 @@
 ﻿using Library;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace Client;
+namespace Client.CLI;
 
 public class Connection : INotificationContract
 {

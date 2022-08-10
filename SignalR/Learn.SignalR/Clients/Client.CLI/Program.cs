@@ -1,6 +1,6 @@
 ﻿using Library;
 
-namespace Client;
+namespace Client.CLI;
 
 internal class Program
 {
