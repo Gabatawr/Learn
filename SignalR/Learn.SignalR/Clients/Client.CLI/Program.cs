@@ -1,11 +1,11 @@
 ﻿using Library;
-using Library.Notification;
+using Library.Messages;
 
 namespace Client.CLI;
 
 internal class Program
 {
-    private static NotificationHubConnection? _connection;
+    private static MessageHubConnection? _connection;
 
     private static async Task Main(string[] args)
     {
@@ -43,7 +43,7 @@ internal class Program
                 {
                     var message = new Message
                     {
-                        Title = "simple message",
+                        Info = "Console client",
                         Body = userInput
                     };
 
@@ -62,13 +62,13 @@ internal class Program
     {
         _connection = new($"http://localhost:{port}", message =>
         {
-            Console.WriteLine($"\n{DateTime.Now:T} New message from server");
-            Console.WriteLine($"Title  : {message.Title}");
+            Console.WriteLine($"\n{DateTime.Now:T} New message from {message.Sender}");
+            Console.WriteLine($"Info   : {message.Info}");
             Console.WriteLine($"Body   : {message.Body}");
 
             Console.WriteLine("\nEnter your message or command:");
         });
 
-        return _connection.StartAsync();
+        return _connection.Hub.StartAsync();
     }
 }

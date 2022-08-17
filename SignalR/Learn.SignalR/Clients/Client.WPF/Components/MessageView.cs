@@ -1,14 +1,20 @@
 ﻿using System;
-using System.Windows;
+using Library;
 
 namespace Client.WPF.Components;
 
-public class MessageView
+public class MessageView : Message
 {
-    public bool IsMy { get; set; }
-
-    public string? Name { get; set; }
-    public string? Text { get; set; }
-
+    public bool IsOwnMessage { get; set; }
     public DateTime DateTime { get; set; }
+
+    public MessageView() => DateTime = DateTime.Now;
+
+    public MessageView(Message message)
+    : this()
+    {
+        Sender = message.Sender;
+        Info = message.Info;
+        Body = message.Body;
+    }
 }

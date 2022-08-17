@@ -7,9 +7,9 @@ namespace Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class NotificationController : ControllerBase
+public class MessageController : ControllerBase
 {
-    public NotificationController()
+    public MessageController()
     {
         
     }
@@ -17,7 +17,7 @@ public class NotificationController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Push(
         [FromBody] Message message,
-        [FromServices] IHubContext<NotificationHub, INotificationClient> hubContext)
+        [FromServices] IHubContext<MessageHub, IMessageClient> hubContext)
     {
         await hubContext.Clients.All.Send(message);
         return Ok();

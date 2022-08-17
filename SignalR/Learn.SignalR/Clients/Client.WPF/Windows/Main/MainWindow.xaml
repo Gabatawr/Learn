@@ -42,7 +42,8 @@
       </Grid.Resources>
 
       <Button Grid.Column="0" Style="{StaticResource ButtonTemplate}"
-              Command="{Binding ConnectClickCommand}" Content="Connect"
+              Command="{Binding ConnectClickCommand}"
+              Content="{Binding ConnectBtnText}"
               Padding="3" Width="89" BorderThickness="0,1,0,0"/>
 
       <TextBox Grid.Column="1" Style="{StaticResource TextBoxTemplate}"

@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
 using Library;
-using Library.Notification;
+using Library.Messages;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Server.Hubs.Notification;
 
-public class NotificationHub : Hub<INotificationClient>, INotificationContract
+public class MessageHub : Hub<IMessageClient>, IMessageContract
 {
     private enum Keys
     {
@@ -17,23 +17,31 @@ public class NotificationHub : Hub<INotificationClient>, INotificationContract
         Debug.WriteLine(Context.ConnectionId);
 
         if (Context.Items.ContainsKey(Keys.UserName))
-            message.Title = $"Message from user: {Context.Items[Keys.UserName] as string}";
+            message.Sender = Context.Items[Keys.UserName] as string;
 
         return Clients.Others.Send(message);
     }
 
     public Task SetName(string name)
     {
+        if (string.IsNullOrWhiteSpace(name))
+            return Task.CompletedTask;
+
         Context.Items.TryAdd(Keys.UserName, name);
         return Task.CompletedTask;
     }
+
+    public Task<string> GetName() =>
+        Context.Items.ContainsKey(Keys.UserName) 
+            ? Task.FromResult(Context.Items[Keys.UserName] as string)!
+            : Task.FromResult(Message.DefaultSender);
 
     public override Task OnConnectedAsync()
     {
         Clients.Others.Send(new Message
         {
-            Title = $"New client connected {Context.ConnectionId}",
-            Body = string.Empty
+            Sender = "Server",
+            Info = $"New client connected {Context.ConnectionId}",
         });
 
         return base.OnConnectedAsync();
@@ -43,8 +51,8 @@ public class NotificationHub : Hub<INotificationClient>, INotificationContract
     {
         Clients.Others.Send(new Message
         {
-            Title = $"Client disconnected {Context.ConnectionId}",
-            Body = string.Empty
+            Sender = "Server",
+            Info = $"Client disconnected {Context.ConnectionId}",
         });
 
         return base.OnDisconnectedAsync(exception);

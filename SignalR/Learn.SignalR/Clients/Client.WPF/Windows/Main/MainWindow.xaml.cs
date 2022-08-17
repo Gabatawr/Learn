@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Client.WPF.Common;
 
 namespace Client.WPF.Windows.Main;
 

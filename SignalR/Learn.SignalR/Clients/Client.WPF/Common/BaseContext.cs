@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
-using Client.WPF.Annotations;
 
 namespace Client.WPF.Common;
 

@@ -1,18 +1,35 @@
-﻿namespace Client.WPF.Windows.Main;
+﻿using System;
+using Microsoft.AspNetCore.SignalR.Client;
+
+namespace Client.WPF.Windows.Main;
 
 public partial class MainWindowContext
 {
-    #region State
+    #region ConnectBtnText
 
-    private string? _state;
+    private const string? ConnectState = "Disconnect";
+    private const string? DisconnectState = "Connect";
 
-    public string? State
+    private string? _connectBtnText;
+    public string? ConnectBtnText
     {
-        get => _state;
-        set => Set(ref _state, value);
+        get => _connectBtnText;
+        set => Set(ref _connectBtnText, value);
     }
 
-    #endregion State
+    private void UpdateConnectBtnText()
+    {
+        ConnectBtnText = _connection?.Hub.State switch
+        {
+            HubConnectionState.Disconnected => DisconnectState,
+            HubConnectionState.Connected => ConnectState,
+            HubConnectionState.Connecting => HubConnectionState.Connecting.ToString(),
+            HubConnectionState.Reconnecting => HubConnectionState.Reconnecting.ToString(),
+            _ => throw new ArgumentOutOfRangeException()
+        } ?? DisconnectState;
+    }
+
+    #endregion ConnectBtnText
 
     #region Name
 

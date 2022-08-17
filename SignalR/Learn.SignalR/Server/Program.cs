@@ -20,7 +20,7 @@ public class Program
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
-            endpoints.MapHub<NotificationHub>("/notification");
+            endpoints.MapHub<MessageHub>("/messages");
         });
 
         app.Run();

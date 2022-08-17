@@ -3,7 +3,7 @@ using Library;
 
 namespace Server.Hubs.Notification;
 
-public interface INotificationClient
+public interface IMessageClient
 {
     Task Send(Message message);
 }

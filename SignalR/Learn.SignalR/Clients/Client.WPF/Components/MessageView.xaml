@@ -4,24 +4,38 @@
 
   <DataTemplate x:Key="MessageViewTemplate" DataType="{x:Type components:MessageView}">
 
-    <Border Background="LightGray" Padding="8">
+    <Border Background="LightGray" Padding="8,4,8,8" Margin="0,5">
       <StackPanel>
 
-        <TextBlock>
+        <TextBlock Margin="0,0,0,2">
           <Run Text="{Binding DateTime, StringFormat=HH:mm:ss}" Foreground="SteelBlue"/>
-          <Run Text="{Binding Name}" FontWeight="Bold" Foreground="DodgerBlue"/>
+          <Run Text="{Binding Sender}" FontWeight="Bold" Foreground="DodgerBlue"/>
         </TextBlock>
-
-        <TextBlock Text="{Binding Text}"
+        <TextBlock Text="{Binding Info}"
+                   FontStyle="Italic" Foreground="DimGray">
+          <TextBlock.Style>
+            <Style TargetType="TextBlock">
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding Info}" Value="{x:Null}">
+                  <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </TextBlock.Style>
+        </TextBlock>
+        <TextBlock Text="{Binding Body}" Margin="0,0,0,2"
                    MaxWidth="400" TextWrapping="WrapWithOverflow" FontWeight="Medium">
           <TextBlock.Style>
             <Style TargetType="TextBlock">
               <Style.Triggers>
-                <DataTrigger Binding="{Binding IsMy}" Value="True">
+                <DataTrigger Binding="{Binding IsOwnMessage}" Value="True">
                   <Setter Property="HorizontalAlignment" Value="Right"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding IsMy}" Value="False">
+                <DataTrigger Binding="{Binding IsOwnMessage}" Value="False">
                   <Setter Property="HorizontalAlignment" Value="Left"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Body}" Value="{x:Null}">
+                  <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
               </Style.Triggers>
             </Style>
@@ -33,16 +47,16 @@
       <Border.Style>
         <Style TargetType="Border">
           <Style.Triggers>
-            <DataTrigger Binding="{Binding IsMy}" Value="True">
+            <DataTrigger Binding="{Binding IsOwnMessage}" Value="True">
               <Setter Property="CornerRadius" Value="8,0,8,8"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding IsMy}" Value="False">
+            <DataTrigger Binding="{Binding IsOwnMessage}" Value="False">
               <Setter Property="CornerRadius" Value="0,8,8,8"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding IsMy}" Value="True">
+            <DataTrigger Binding="{Binding IsOwnMessage}" Value="True">
               <Setter Property="HorizontalAlignment" Value="Right"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding IsMy}" Value="False">
+            <DataTrigger Binding="{Binding IsOwnMessage}" Value="False">
               <Setter Property="HorizontalAlignment" Value="Left"/>
             </DataTrigger>
           </Style.Triggers>
