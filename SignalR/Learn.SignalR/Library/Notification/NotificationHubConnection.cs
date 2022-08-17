@@ -1,13 +1,12 @@
-﻿using Library;
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 
-namespace Client.CLI;
+namespace Library.Notification;
 
-public class Connection : INotificationContract
+public class NotificationHubConnection : INotificationContract
 {
     private readonly HubConnection _hub;
 
-    public Connection(string url, Action<Message> messageHandler)
+    public NotificationHubConnection(string url, Action<Message> messageHandler)
     {
         _hub = new HubConnectionBuilder()
             .WithUrl($"{url}/notification")

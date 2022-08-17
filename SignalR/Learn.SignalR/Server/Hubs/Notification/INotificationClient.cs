@@ -1,7 +1,7 @@
 ﻿
 using Library;
 
-namespace Server.Hubs;
+namespace Server.Hubs.Notification;
 
 public interface INotificationClient
 {

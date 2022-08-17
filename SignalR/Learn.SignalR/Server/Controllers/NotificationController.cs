@@ -1,7 +1,7 @@
 ﻿using Library;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Server.Hubs;
+using Server.Hubs.Notification;
 
 namespace Server.Controllers;
 

@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:components="clr-namespace:Client.WPF.Components">
+
+  <DataTemplate x:Key="MessageViewTemplate" DataType="{x:Type components:MessageView}">
+
+    <Border Background="LightGray" Padding="8">
+      <StackPanel>
+
+        <TextBlock>
+          <Run Text="{Binding DateTime, StringFormat=HH:mm:ss}" Foreground="SteelBlue"/>
+          <Run Text="{Binding Name}" FontWeight="Bold" Foreground="DodgerBlue"/>
+        </TextBlock>
+
+        <TextBlock Text="{Binding Text}"
+                   MaxWidth="400" TextWrapping="WrapWithOverflow" FontWeight="Medium">
+          <TextBlock.Style>
+            <Style TargetType="TextBlock">
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMy}" Value="True">
+                  <Setter Property="HorizontalAlignment" Value="Right"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsMy}" Value="False">
+                  <Setter Property="HorizontalAlignment" Value="Left"/>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </TextBlock.Style>
+
+        </TextBlock>
+      </StackPanel>
+
+      <Border.Style>
+        <Style TargetType="Border">
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding IsMy}" Value="True">
+              <Setter Property="CornerRadius" Value="8,0,8,8"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsMy}" Value="False">
+              <Setter Property="CornerRadius" Value="0,8,8,8"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsMy}" Value="True">
+              <Setter Property="HorizontalAlignment" Value="Right"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsMy}" Value="False">
+              <Setter Property="HorizontalAlignment" Value="Left"/>
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </Border.Style>
+    </Border>
+
+  </DataTemplate>
+</ResourceDictionary>

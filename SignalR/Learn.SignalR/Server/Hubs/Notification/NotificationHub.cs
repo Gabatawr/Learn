@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
 using Library;
+using Library.Notification;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Server.Hubs;
+namespace Server.Hubs.Notification;
 
 public class NotificationHub : Hub<INotificationClient>, INotificationContract
 {

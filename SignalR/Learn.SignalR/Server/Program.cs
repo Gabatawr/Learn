@@ -1,4 +1,4 @@
-using Server.Hubs;
+using Server.Hubs.Notification;
 
 namespace Server;
 

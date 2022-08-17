@@ -1,13 +1,16 @@
 ﻿using Library;
+using Library.Notification;
 
 namespace Client.CLI;
 
 internal class Program
 {
-    private static Connection? _connection;
+    private static NotificationHubConnection? _connection;
 
     private static async Task Main(string[] args)
     {
+        Console.Title = "Client.CLI";
+
         await InitConnection(5127);
         
         var isExit = false;
@@ -57,7 +60,7 @@ internal class Program
 
     private static Task InitConnection(int port)
     {
-        _connection = new Connection($"http://localhost:{port}", message =>
+        _connection = new($"http://localhost:{port}", message =>
         {
             Console.WriteLine($"\n{DateTime.Now:T} New message from server");
             Console.WriteLine($"Title  : {message.Title}");

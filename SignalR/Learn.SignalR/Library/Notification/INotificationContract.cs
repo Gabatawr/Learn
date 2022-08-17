@@ -1,4 +1,4 @@
-﻿namespace Library;
+﻿namespace Library.Notification;
 
 public interface INotificationContract
 {
